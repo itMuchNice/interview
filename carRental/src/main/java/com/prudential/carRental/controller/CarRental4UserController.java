@@ -27,7 +27,7 @@ public class CarRental4UserController {
     @GetMapping("/queryCarModelList")
     public ResultDTO queryCarModelList() {
         List<CarModelEntity> carModelEntities = this.carRentalService.queryCarModel();
-        return new ResultDTO("0", "查询成功", JSON.toJSONString(carModelEntities));
+        return new ResultDTO("0", "查询成功", (JSON) JSON.toJSON(carModelEntities));
     }
 
 
@@ -40,7 +40,7 @@ public class CarRental4UserController {
 
         List<CarStockEntity> carStockEntities = this.carRentalService.queryCarStock(queryParamEntity);
 
-        return new ResultDTO("0", "查询成功", JSON.toJSONString(carStockEntities));
+        return new ResultDTO("0", "查询成功", (JSON) JSON.toJSON(carStockEntities));
     }
 
 
@@ -53,14 +53,14 @@ public class CarRental4UserController {
 
         List<CarStockEntity> carStockEntities = this.carRentalService.queryCarStock(queryParamEntity);
         if(null == carStockEntities || carStockEntities.size() == 0){
-            return new ResultDTO("2002", "没有可预订的车辆", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("2002", "没有可预订的车辆", (JSON) JSON.toJSON(queryParamEntity));
         }
 
         boolean bookingResult =  this.carRentalService.updateCar(queryParamEntity, "booking");
         if(bookingResult){
-            return new ResultDTO("0", "预订成功", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("0", "预订成功", (JSON) JSON.toJSON(queryParamEntity));
         }else{
-            return new ResultDTO("2001", "预订失败，请重新查询", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("2001", "预订失败，请重新查询", (JSON) JSON.toJSON(queryParamEntity));
         }
     }
 
@@ -73,14 +73,14 @@ public class CarRental4UserController {
 
         List<CarStockEntity> rentalCarStockEntities = this.carRentalService.queryRentalCar(queryParamEntity);
         if(null == rentalCarStockEntities || rentalCarStockEntities.size() == 0){
-            return new ResultDTO("2002", "该车辆尚未预订，不可取消", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("3002", "该车辆尚未预订，不可取消", (JSON) JSON.toJSON(queryParamEntity));
         }
 
         boolean giveBackCarResult =  this.carRentalService.updateCar(queryParamEntity, "cancel");
         if(giveBackCarResult){
-            return new ResultDTO("0", "取消成功", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("0", "取消成功", (JSON) JSON.toJSON(queryParamEntity));
         }else{
-            return new ResultDTO("2001", "取消失败，请重新查询", JSON.toJSONString(queryParamEntity));
+            return new ResultDTO("3001", "取消失败，请重新输入", (JSON) JSON.toJSON(queryParamEntity));
         }
     }
 
@@ -91,11 +91,11 @@ public class CarRental4UserController {
     private ResultDTO checkParams(QueryParamEntity queryParamEntity, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             String errorMessage = BindingResultUtil.processBindingResult(bindingResult);
-            return new ResultDTO("1001", "参数有误", errorMessage);
+            return new ResultDTO("1001", "参数有误," + errorMessage,null);
         }
 
         if(queryParamEntity.getStartDate().after(queryParamEntity.getEndDate())){
-            return new ResultDTO("1002", "参数有误,开始时间不能大于结束时间", "");
+            return new ResultDTO("1002", "参数有误,开始时间不能大于结束时间", null);
         }
         return null;
     }

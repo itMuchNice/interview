@@ -46,7 +46,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"0\",\"message\":\"查询成功\",\"resultData\":\"[]\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"0\",\"message\":\"查询成功\",\"resultData\":[]}", response.getContentAsString());
 
     }
 
@@ -60,7 +60,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误\",\"resultData\":\"汽车模型为空;\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误,汽车模型为空;\",\"resultData\":null}", response.getContentAsString());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误\",\"resultData\":\"租赁开始时间为空;\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误,租赁开始时间为空;\",\"resultData\":null}", response.getContentAsString());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"1002\",\"message\":\"参数有误,开始时间不能大于结束时间\",\"resultData\":\"\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"1002\",\"message\":\"参数有误,开始时间不能大于结束时间\",\"resultData\":null}", response.getContentAsString());
     }
 
     //预订车辆的测试用例
@@ -128,7 +128,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"2002\",\"message\":\"没有可预订的车辆\",\"resultData\":\"{\\\"carModel\\\":\\\"BMW 650\\\",\\\"endDate\\\":1626048000000,\\\"startDate\\\":1625875200000}\"}",
+        Assert.assertEquals("{\"returnCode\":\"2002\",\"message\":\"没有可预订的车辆\",\"resultData\":{\"endDate\":\"2021-07-12T00:00:00.000+0000\",\"startDate\":\"2021-07-10T00:00:00.000+0000\",\"carModel\":\"BMW 650\"}}",
                 response.getContentAsString());
     }
 
@@ -142,7 +142,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误\",\"resultData\":\"汽车模型为空;\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误,汽车模型为空;\",\"resultData\":null}", response.getContentAsString());
     }
 
 
@@ -157,7 +157,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"2002\",\"message\":\"该车辆尚未预订，不可取消\",\"resultData\":\"{\\\"carModel\\\":\\\"BMW 650\\\",\\\"endDate\\\":1626048000000,\\\"startDate\\\":1625875200000}\"}",
+        Assert.assertEquals("{\"returnCode\":\"3002\",\"message\":\"该车辆尚未预订，不可取消\",\"resultData\":{\"endDate\":\"2021-07-12T00:00:00.000+0000\",\"startDate\":\"2021-07-10T00:00:00.000+0000\",\"carModel\":\"BMW 650\"}}",
                 response.getContentAsString());
     }
 
@@ -171,7 +171,7 @@ public class CarRental4UserControllerTest {
                         .content(json)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误\",\"resultData\":\"汽车模型为空;\"}", response.getContentAsString());
+        Assert.assertEquals("{\"returnCode\":\"1001\",\"message\":\"参数有误,汽车模型为空;\",\"resultData\":null}", response.getContentAsString());
     }
 
 

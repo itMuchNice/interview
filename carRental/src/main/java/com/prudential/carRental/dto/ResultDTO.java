@@ -1,6 +1,7 @@
 package com.prudential.carRental.dto;
 
 
+import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,5 +10,5 @@ import lombok.Data;
 public class ResultDTO {
     private String returnCode;
     private String message;
-    private String resultData;
+    private JSON resultData;
 }
